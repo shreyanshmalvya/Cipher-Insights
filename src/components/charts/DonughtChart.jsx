@@ -6,14 +6,15 @@ const valueFormatter = (number) =>
     `${Intl.NumberFormat("us").format(number).toString()} crimes`;
 
 export default function Example() {
-
+    const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch("http://localhost:5000/cities/top5");
-            const data = await response.json();
-            setData(data.top5);
+            const res = await response.json();
+            setData(res.top5);
+            setIsLoaded(true);
         };
         fetchData();
     }, []);
@@ -21,11 +22,12 @@ export default function Example() {
     console.log(data)
 
     return (
+        isLoaded &&
         <Card className="max-w-lg">
             <Title>City Wise Crime Distribution</Title>
             <DonutChart
                 className="mt-6"
-                data={data || cities}
+                data={data}
                 category="totalFrequency"
                 index="city"
                 valueFormatter={valueFormatter}

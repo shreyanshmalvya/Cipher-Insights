@@ -8,9 +8,17 @@ import PieChart from "../charts/DonughtChart";
 import ListTable from "../charts/ListTable";
 
 export default function PrimaryDash() {
-    const [totalCrime, setTotalCrime] = useState({});
-    const [highestCrime, setHighestCrime] = useState({});
-    const [highestCategory, setHighestCategory] = useState({});
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [totalCrime, setTotalCrime] = useState({
+        "city": "",
+        "totalFrequency": "",
+        "percentage": 1
+    });
+    const [highestCrime, setHighestCrime] = useState({ "city": "", "totalFrequency": "", "percentage": 1 });
+    const [highestCategory, setHighestCategory] = useState({
+        "highestCategory": "",
+        "percentageChange": 1
+    });
 
     //fetch data from api
     const fetchTotalCrime = async () => {
@@ -31,24 +39,26 @@ export default function PrimaryDash() {
         setHighestCategory(data);
     };
 
+    const ical = async () => {
+        await fetchTotalCrime();
+        await highestFrequency();
+        await highestCrimeCategory();
+        setIsLoaded(true);
+    }
+
+    console.log(totalCrime, highestCrime, highestCategory)
 
     useEffect(() => {
-        fetchTotalCrime();
-        highestFrequency();
-        highestCrimeCategory();
+        ical();
     }, []);
 
-
-    // console.log(totalCrime)
-    console.log(highestCrime)
-
-
     return (
+        isLoaded &&
         <>
             <Grid numColsMd={3} numColsLg={3} className="gap-6 mt-6">
-                <InfoCard Title="Crimes in Past Week" MetricData={totalCrime.lastWeekCount} MetricPrev={totalCrime.totalCount} Delta={totalCrime.changeCategory} DeltaVal={`${totalCrime.percentageChange}%`} />
-                <InfoCard Title="City with Highest Crime" MetricData={highestCrime.totalFrequency} MetricPrev={highestCrime.city} Delta={highestCrime.changeCategory} DeltaVal={`${highestCrime.percentageChange}%`} />
-                <InfoCard Title="Highest Crime Category" MetricData={highestCategory.totalFrequency} MetricPrev={highestCategory.highestCategory} Delta="increase" DeltaVal={`${highestCategory.percentageChange}%`}/>
+                <InfoCard Title="Crimes in Past Week" MetricData={totalCrime?.lastWeekCount} MetricPrev={totalCrime?.totalCount} Delta={totalCrime?.changeCategory} DeltaVal={`${totalCrime?.percentageChange}%`} />
+                <InfoCard Title="City with Highest Crime" MetricData={highestCrime?.totalFrequency} MetricPrev={highestCrime?.city} Delta={highestCrime?.changeCategory} DeltaVal={`${highestCrime?.percentageChange}%`} />
+                <InfoCard Title="Highest Crime Category" MetricData={highestCategory?.highestFrequency} MetricPrev={highestCategory?.highestCategory} Delta={highestCategory?.changeCategory} DeltaVal={`${highestCategory?.percentageChange}%`} />
             </Grid>
             <Grid numColsMd={4} numColsLg={4} className="gap-6 mt-6 w-full">
                 <Col numColSpan={3} numColSpanLg={3}>

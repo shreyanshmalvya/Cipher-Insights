@@ -21,7 +21,7 @@ const colors = {
 export default function InfoCard({ Title, MetricData, MetricPrev, Delta, DeltaVal }) {
     return (
         <Card>
-            <Text>{Title}</Text>
+            <Text className="mb-2" >{Title}</Text>
             <Flex
                 justifyContent="start"
                 alignItems="baseline"
