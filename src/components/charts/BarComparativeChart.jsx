@@ -30,8 +30,6 @@ function BarComparativeChart() {
         fetchData();
     }, []);
 
-    console.log(data)
-
     return (
         isLoaded &&
         <Card className="min-w-fit">

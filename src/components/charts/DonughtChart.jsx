@@ -19,7 +19,6 @@ export default function Example() {
         fetchData();
     }, []);
 
-    console.log(data)
 
     return (
         isLoaded &&

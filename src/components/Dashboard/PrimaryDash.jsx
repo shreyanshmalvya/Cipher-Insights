@@ -47,8 +47,6 @@ export default function PrimaryDash() {
         setIsLoaded(true);
     }
 
-    console.log(totalCrime, highestCrime, highestCategory)
-
     useEffect(() => {
         ical();
     }, []);
