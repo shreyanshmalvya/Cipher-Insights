@@ -1,54 +1,49 @@
 import { Card, Title, AreaChart } from "@tremor/react";
+import React, { useEffect, useState } from "react";
 
-const chartdata = [
-    {
-        date: "Jan 22",
-        SemiAnalysis: 2890,
-        "The Pragmatic Engineer": 2338,
-    },
-    {
-        date: "Feb 22",
-        SemiAnalysis: 2756,
-        "The Pragmatic Engineer": 2103,
-    },
-    {
-        date: "Mar 22",
-        SemiAnalysis: 3322,
-        "The Pragmatic Engineer": 2194,
-    },
-    {
-        date: "Apr 22",
-        SemiAnalysis: 3470,
-        "The Pragmatic Engineer": 2108,
-    },
-    {
-        date: "May 22",
-        SemiAnalysis: 3475,
-        "The Pragmatic Engineer": 1812,
-    },
-    {
-        date: "Jun 22",
-        SemiAnalysis: 3129,
-        "The Pragmatic Engineer": 1726,
-    },
-];
 
-const dataFormatter = () => {
-    return "$ " + Intl.NumberFormat("us").toString();
+const yAxisValueFormatter = (value) => {
+    // Parse the value as a number
+    const count = parseInt(value);
+
+    // Format the count based on its magnitude
+    if (count >= 1000000) {
+        return `${(count / 1000000).toFixed(1)}M`;
+    } else if (count >= 1000) {
+        return `${(count / 1000).toFixed(1)}K`;
+    } else {
+        return value;
+    }
 };
 
-const ActiveUserChart = () => (
-    <Card>
-        <Title>Newsletter revenue over time (USD)</Title>
-        <AreaChart
-            className="h-72 mt-4"
-            data={chartdata}
-            index="date"
-            categories={["SemiAnalysis", "The Pragmatic Engineer"]}
-            colors={["indigo", "cyan"]}
-            // valueFormatter={dataFormatter}
-        />
-    </Card>
-);
+function ActiveUserChart() {
+    const [isLoaded, setIsLoaded] = React.useState(false);
+    const [data, setData] = React.useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch("http://localhost:5000/crimes/crimes-by-month");
+            const res = await response.json();
+            setData(res);
+            setIsLoaded(true);
+        };
+        fetchData();
+    }, []);
+
+    return (
+        isLoaded &&
+        <Card>
+            <Title>Comprehensive 12-Month Crime Frequency Analysis</Title>
+            <AreaChart
+                className="h-72 mt-4"
+                data={data}
+                index="date"
+                categories={["Current_Year", "Previous_Year"]}
+                colors={["indigo", "cyan"]}
+                valueFormatter={yAxisValueFormatter}
+            />
+        </Card>
+    )
+}
 
 export default ActiveUserChart;

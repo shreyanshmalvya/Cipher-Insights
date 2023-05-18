@@ -6,6 +6,7 @@ import InfoCard from "../charts/InfoCard";
 import SourcesBarChart from "../charts/SourcesBarChart";
 import PieChart from "../charts/DonughtChart";
 import ListTable from "../charts/ListTable";
+import BarComparativeChart from "../charts/BarComparativeChart";
 
 export default function PrimaryDash() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -70,7 +71,7 @@ export default function PrimaryDash() {
             </Grid>
             <Grid numColsMd={4} numColsLg={4} className="gap-6 mt-6 w-full">
                 <Col numColSpan={3} numColSpanLg={3}>
-                    <ActiveUserChart />
+                    <BarComparativeChart />
                 </Col>
                 <div className="flex">
                     <ListTable />
