@@ -7,7 +7,7 @@ function ListTable() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:5000/crimes/active");
+            const response = await fetch(`${import.meta.env.VITE_DB_URL}/crimes/active`);
             const res = await response.json();
             setData(res);
             setIsLoaded(true);

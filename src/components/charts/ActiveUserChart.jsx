@@ -22,7 +22,7 @@ function ActiveUserChart() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:5000/crimes/crimes-by-month");
+            const response = await fetch(`${import.meta.env.VITE_DB_URL}/crimes/crimes-by-month`);
             const res = await response.json();
             setData(res);
             setIsLoaded(true);

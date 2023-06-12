@@ -11,7 +11,7 @@ export default function Example() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:5000/cities/top5");
+            const response = await fetch(`${import.meta.env.VITE_DB_URL}/cities/top5`);
             const res = await response.json();
             setData(res.top5);
             setIsLoaded(true);

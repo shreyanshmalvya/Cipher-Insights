@@ -22,7 +22,7 @@ function BarComparativeChart() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:5000/categories/top7");
+            const response = await fetch(`${import.meta.env.VITE_DB_URL}/categories/top7`);
             const res = await response.json();
             setData(res);
             setIsLoaded(true);

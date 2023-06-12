@@ -27,7 +27,7 @@ export default function TableChart() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("http://localhost:5000/crimes/");
+            const response = await fetch(`${import.meta.env.VITE_DB_URL}/crimes/`);
             const res = await response.json();
             setData(res);
             setIsLoaded(true);

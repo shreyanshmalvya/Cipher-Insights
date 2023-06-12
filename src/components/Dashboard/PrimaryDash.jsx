@@ -23,19 +23,19 @@ export default function PrimaryDash() {
 
     //fetch data from api
     const fetchTotalCrime = async () => {
-        const response = await fetch("http://localhost:5000/crimes/total");
+        const response = await fetch(`${import.meta.env.VITE_DB_URL}/crimes/total`);
         const data = await response.json();
         setTotalCrime(data);
     };
 
     const highestFrequency = async () => {
-        const response = await fetch("http://localhost:5000/cities/highestCrime");
+        const response = await fetch(`${import.meta.env.VITE_DB_URL}/cities/highestCrime`);
         const data = await response.json();
         setHighestCrime(data.highestCity);
     };
 
     const highestCrimeCategory = async () => {
-        const response = await fetch("http://localhost:5000/categories/highestCrime");
+        const response = await fetch(`${import.meta.env.VITE_DB_URL}/categories/highestCrime`);
         const data = await response.json();
         setHighestCategory(data);
     };
