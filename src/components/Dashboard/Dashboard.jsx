@@ -9,7 +9,7 @@ export default function Dashboard() {
   return (
     <main className="w-full h-full px-8 py-8 bg-slate-100">
       <Metric>Dashboard</Metric>
-      <Text className="py-1">Optimizing Immutable's performance with tracking crime logs and key metrics in real-time for data-driven decision making</Text>
+      <Text className="py-1">Optimizing Cipher's performance with tracking crime logs and key metrics in real-time for data-driven decision making</Text>
 
       <TabList
         defaultValue="1"
